@@ -18,6 +18,8 @@
     - [Claim Processor Agent](#claim-processor-agent)
       - [Create the Claim Processor Agent](#create-the-claim-processor-agent)
       - [Test the Claim Processor Agent](#test-the-claim-processor-agent)
+    - [Supervisor Agent](#supervisor-agent)
+      - [Create the Supervisor Agent](#create-the-supervisor-agent)
     - [Further testing via AI Chat](#further-testing-via-ai-chat)
 
 ## Use case description
@@ -29,19 +31,26 @@ Customers can initiate a claim by answering a few guided questions, even with mi
 For insurers, incoming claims are automatically retrieved and intelligently cross-verified against policy documents. The system extracts critical data and evaluates it against business rules and regulatory standards, generating structured recommendations for claim approval or denial. While final decisions remain with the insurer, each recommendation is backed by a clear, concise summary of all supporting details—minimizing errors and enabling faster, more informed decision-making.
 ## Architecture
 
-![Architecture](Insurance_Autoclaims_Architecture_v2.png)
+![Architecture](Autoclaims_Insurance_Architecture_v5.png)
 
 ## Implementation
 
 ### Pre-requisites
 
-- Check with your instructor to ensure **all systems** are up and running before you continue.
+**Instructors**: 
+- Check the corresponding [Instructor's guide](https://github.ibm.com/skol/agentic-ai-client-bootcamp-instructors/tree/main/usecase-setup/autoclaim-insurance) repo to set up all environments and backend services.
+  > NOTE: the `main` branch contains the latest release code. If you want to use a previous release, download the same [release](https://github.ibm.com/skol/agentic-ai-client-bootcamp-instructors/releases) that will be used for participants' lab. 
+- Ensure you have provided updated OpenAPI Specs located in the instructor repo at `usecase-setup/autoclaim-insurance/insurance_src/open_api_specs` with the correct URL to your deployed backend service for the lab participants.
+- Provide access to the data files located in the instructor repo at `usecase-setup/autoclaim-insurance/insurance_src/data` that will be used as knowledge.
+  
+**Participants**:
 - Validate that you have access to the right TechZone environment for this lab.
+- Complete the [environment-setup](../../../environment-setup) guide for steps on API key creation and project setup.
 - Validate that you have access to a credentials file that your instructor will share with you before starting the labs.
-- If you're an instructor running this lab, check the Instructor's guides to set up all environments and systems.
+- Familiarity with AI agent concepts (e.g., instructions, tools, collaborators...)
 - Make sure that your instructor has provided the following:
-  - **OpenAPI Specs**
-  - **A customer username registered in the insurance database.**
+  - updated **OpenAPI Specs**
+  - data files to be uploaded as knowledge
 
 ### Open Agent Builder
 
@@ -82,24 +91,24 @@ For insurers, incoming claims are automatically retrieved and intelligently cros
   <img width="1000" alt="image" src="./screenshots_hands_on_lab/information-agent/4-ia.png">
 
 - Under the **Toolset** section, click on the **Add tool** button to upload the OpenAPI Spec
-  <img width="1000" alt="image" src="./screenshots_hands_on_lab/information-agent/5-ia.png">
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/information-agent/ia_tool_1.png">
 
 - Click on **Import**.
 
   <img width="1000" alt="image" src="./screenshots_hands_on_lab/information-agent/6-ia.png">
 
-- Upload the `duckduckgo.json` OpenAPI Spec which will be provided by the instructor.
+- Upload the `tavily.json` OpenAPI Spec which will be provided by the instructor.
 
   <img width="1000" alt="image" src="./screenshots_hands_on_lab/information-agent/7-ia.png">
   <img width="1000" alt="image" src="./screenshots_hands_on_lab/information-agent/8-ia.png">
 
 - Once the file is uploaded, select **Next**.
 
-  <img width="1000" alt="image" src="./screenshots_hands_on_lab/information-agent/10-ia.png">
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/information-agent/ia_tool_2.png">
 
 - Select the all of the **Operations** and click **Done**
 
-  <img width="1000" alt="image" src="./screenshots_hands_on_lab/information-agent/11-ia.png">
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/information-agent/ia_tool_3.png">
 
 - Go to the **Behavior** section. Add the following for **Instructions**. This will define how the Agent should behave and what it should expect:
   ```
@@ -110,8 +119,9 @@ For insurers, incoming claims are automatically retrieved and intelligently cros
 - Keep the channels setting as it is.
   <img width="1000" alt="image" src="./screenshots_hands_on_lab/information-agent/13-ia.png">
 
-- Click on **Deploy** to deploy the agent
+- Click on **Deploy** in both the screens to deploy the agent.
   <img width="1000" alt="image" src="./screenshots_hands_on_lab/information-agent/14-ia.png">
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/deploy/ia_20.png">
 
 #### Test the Information Agent
 
@@ -231,10 +241,13 @@ For insurers, incoming claims are automatically retrieved and intelligently cros
   ```
   <img width="1000" alt="image" src="./screenshots_hands_on_lab/customer/customer-15.png">
 
-- No need to change `Channels` settings. Click on **Deploy** to deploy the agent.
+- No need to change `Channels` settings.
 
   <img width="1000" alt="image" src="./screenshots_hands_on_lab/customer/customer-16.png">
+
+- Click on **Deploy** on both the screens to deploy the agent.
   <img width="1000" alt="image" src="./screenshots_hands_on_lab/customer/customer-17.png">
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/deploy/cca_20.png">
   
 #### Test the Customer Claims Agent
   
@@ -409,9 +422,14 @@ You can create additional claims for your assigned name to test the next agent.
 
   <img width="1000" alt="image" src="./screenshots_hands_on_lab/claim_processor_insurance_agent/cp-15.png">
 
-- Keep the Channels as it is. Click on **Deploy** to deploy the agent
+- Keep the `Channels` as it is.
 
   <img width="1000" alt="image" src="./screenshots_hands_on_lab/claim_processor_insurance_agent/cp-18.png">
+
+- Click on **Deploy** on both the screens to deploy the agent
+
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/deploy/cpa_19.png">
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/deploy/cpa_20.png">
 
 #### Test the Claim Processor Agent
 
@@ -443,6 +461,136 @@ You can create additional claims for your assigned name to test the next agent.
 
   <img width="1000" alt="image" src="./screenshots_hands_on_lab/cp-flow-5-new.png">
 
+### Supervisor Agent
+#### Create the Supervisor Agent
+
+- Click on hamburger menu, then **Build** -> **Agent Builder**.
+
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/2.png">
+
+- Click on **Create Agent**
+
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/claim_processor_insurance_agent/0.png">
+
+- Follow the steps according the screenshot below.
+  - Select **Create from scratch**
+  - Name the agent `Supervisor Agent`
+  - Use the following description:
+
+    ```
+    The supervisor_insurance agent will act as an supervisor and depending on the query will pass the query to respective agents for processing. This agent will have two agents, customer_claims_agent, that will allow user to submit a new claim, check their claim status and ask information about insurance and claim process. The other agent is the claim_processor_insurance_agent that will allow the claim processor to view all the top open claims using a customer id, if there are multiple claims for a customer, it will allow the claim processor to select using the claim number. The claim processor can accept or reject the claims based on the suggestion made by the agent. 
+    ```
+
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/supervisor_agent/sa_1.png">
+
+- Select the `model`.
+
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/supervisor_agent/sa_2.png">
+
+- Select the Agent Style as `Default`. Also no changes needed for Voice Modality. Keep it as No Voice Configuration
+
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/supervisor_agent/sa_3.png">
+
+- Click on `Add agent`. 
+
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/supervisor_agent/sa_4.png">
+
+- Add the `customer_claims_agent` and `claim_processor_insurance_agent`. Select the agents mentioned above. Click on `Add to agent`.
+
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/supervisor_agent/sa_8.png">
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/supervisor_agent/sa_9.png">
+
+- In the **Behavior** section, add the following for **Instructions**:
+  ```
+  ## 🎯 Role
+  You act as a **supervisor** in the insurance system. Based on the **intent and role** of the user query (customer or claim processor), you must **route the query** to the appropriate agent:
+
+  - `customer_claims_agent`
+  - `claim_processor_insurance_agent`
+
+  ---
+
+  ## 🧠 Step-by-Step Instructions
+
+  ### 1. Detect User Role and Intent
+  - Analyze the incoming query to determine the **intent**.
+  - Identify if the user is a **Customer** or a **Claim Processor**.
+
+  ---
+
+  ### 2. Routing Logic
+
+  #### 🧑 If the User is a **Customer**, route to `customer_claims_agent`
+
+  **Trigger queries include:**
+  - "I want to file/submit a claim"
+  - "Check my claim status"
+  - "Explain the insurance/claim process"
+  - "What documents are needed for a claim?"
+  - "How long does a claim take to process?"
+  - "Where can I track my claim?"
+
+  ✅ **Action**: Forward query to `customer_claims_agent`
+
+  ---
+
+  #### 👨‍💻 If the User is a **Claim Processor**, route to `claim_processor_insurance_agent`
+
+  **Trigger queries include:**
+  - "Get all open claims for a customer"
+  - "Show me the open claims for customer ID X"
+  - "There are multiple claims, help me choose by claim number"
+  - "Should I accept or reject this claim?"
+  - "View suggestions for processing a claim"
+  - "List top unresolved claims for review"
+
+  ✅ **Action**: Forward query to `claim_processor_insurance_agent`
+
+  ---
+
+  ### 3. Handle Invalid or Ambiguous Queries
+
+  If the query is unclear:
+  - Ask a clarifying question:
+    - "Are you a customer looking to file or check a claim?"
+    - "Or are you a claims processor looking to manage claims?"
+
+  ---
+
+  ### 4. Ensure Clear Context Transfer
+
+  When routing, ensure the following is passed to the selected agent:
+  - Any `customer_id`, `claim_number`, or other context from the user
+  - The user's role (if clarified)
+  - The original question or request
+
+  ---
+
+  ### 5. Maintain Logs and Escalate If Needed
+
+  - Maintain a simple internal log of which agent handled which query.
+  - If a query doesn't match any known category, escalate to a human supervisor.
+
+  Make sure you follow the agents instruction as is, do not add additional steps or queries.
+  ```
+
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/supervisor_agent/sa_5.png">
+
+- Keep the `Channels` as it is. 
+
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/supervisor_agent/sa_6.png">
+
+- Click on **Deploy** on both the screens to deploy the agent.
+
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/supervisor_agent/sa_7.png">
+  <img width="1000" alt="image" src="./screenshots_hands_on_lab/deploy/sa_20.png">
+
+- You can do the supervisor agent testing according to the below flow. Follow the flow in the sequence mentioned.
+  [Test the Information Agent](#test-the-information-agent)
+  [Test the Customer Claims Agent](#test-the-customer-claims-agent)
+  [Test the Claim Processor Agent](#test-the-claim-processor-agent)
+
+
 ### Further testing via AI Chat
 >
 > ***You can also test the agents from AI chat.***
@@ -454,3 +602,4 @@ Navigate to AI chat by going to the hamburger menu at top left and select **Chat
 Then select the agent to test: 
 
 <img width="1000" alt="image" src="./screenshots_hands_on_lab/40.png">
+<img width="1000" alt="image" src="./screenshots_hands_on_lab/deploy/ai_chat_20.png">
